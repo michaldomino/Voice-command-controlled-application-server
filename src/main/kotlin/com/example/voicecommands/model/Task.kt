@@ -14,7 +14,9 @@ data class Task(
         var id: String,
 
         @ManyToOne
-        var taskList: TaskList,
+        var note: Note,
+
         var taskName: String,
+
         var isChecked: Boolean,
 )

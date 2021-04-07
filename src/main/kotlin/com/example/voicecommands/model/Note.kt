@@ -1,20 +1,24 @@
 package com.example.voicecommands.model
 
+import com.example.voicecommands.enums.NoteType
 import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*
 
 @Entity
 data class Note(
         @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    var id: String,
+        @GeneratedValue(generator = "uuid2")
+        @GenericGenerator(name = "uuid2", strategy = "uuid2")
+        var id: String,
 
         var name: String,
 
-        @ManyToOne
-    var owner: User,
+        @Enumerated(EnumType.ORDINAL)
+        var noteType: NoteType,
 
-        @ManyToMany
-    var sharedWith: MutableSet<User> = mutableSetOf()
+        @ManyToOne
+        var owner: User,
+
+        @ManyToMany(mappedBy = "sharedNotes")
+        var sharedWith: MutableSet<User> = mutableSetOf()
 )

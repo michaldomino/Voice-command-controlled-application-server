@@ -9,5 +9,6 @@ data class TextNote(
         @Id
         @OneToOne
         var note: Note,
+
         var text: String
 )
