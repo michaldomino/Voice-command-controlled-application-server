@@ -5,16 +5,16 @@ import javax.persistence.*
 
 @Entity
 data class Note(
-    @Id
+        @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     var id: String,
 
-    var name: String,
+        var name: String,
 
-    @ManyToOne
+        @ManyToOne
     var owner: User,
 
-    @ManyToMany
+        @ManyToMany
     var sharedWith: MutableSet<User> = mutableSetOf()
 )
