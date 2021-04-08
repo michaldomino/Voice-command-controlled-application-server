@@ -1,14 +1,16 @@
 package com.example.voicecommands.model
 
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.OneToOne
+import javax.persistence.*
 
 @Entity
 data class TextNote(
-        @Id
-        @OneToOne
-        var note: Note,
+    @Id
+    var id: String,
 
-        var text: String
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "id")
+    var note: Note,
+
+    var text: String
 )

@@ -16,7 +16,7 @@ class User(
     @OneToMany(mappedBy = "owner")
     var ownedNotes: MutableSet<Note>,
 
-    @ManyToMany(mappedBy = "sharedWith")
+    @ManyToMany
     var sharedNotes: MutableSet<Note>,
 
     private var username: String,

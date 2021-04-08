@@ -8,15 +8,15 @@ import javax.persistence.ManyToOne
 
 @Entity
 data class Task(
-        @Id
-        @GeneratedValue(generator = "uuid2")
-        @GenericGenerator(name = "uuid2", strategy = "uuid2")
-        var id: String,
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    var id: String,
 
-        @ManyToOne
-        var note: Note,
+    @ManyToOne
+    var note: Note,
 
-        var taskName: String,
+    var taskName: String,
 
-        var isChecked: Boolean,
+    var isChecked: Boolean,
 )
