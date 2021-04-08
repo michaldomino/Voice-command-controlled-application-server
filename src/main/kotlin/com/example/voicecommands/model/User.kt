@@ -8,24 +8,24 @@ import javax.persistence.*
 
 @Entity
 class User(
-        @Id
-        @GeneratedValue(generator = "uuid2")
-        @GenericGenerator(name = "uuid2", strategy = "uuid2")
-        var id: String,
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    var id: String,
 
-        @OneToMany(mappedBy = "owner")
-        var ownedNotes: MutableSet<Note>,
+    @OneToMany(mappedBy = "owner")
+    var ownedNotes: MutableSet<Note>,
 
-        @ManyToMany(mappedBy = "sharedWith")
-        var sharedNotes: MutableSet<Note>,
+    @ManyToMany(mappedBy = "sharedWith")
+    var sharedNotes: MutableSet<Note>,
 
-        private var username: String,
+    private var username: String,
 
-        private var password: String,
+    private var password: String,
 ) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> = AuthorityUtils
-            .commaSeparatedStringToAuthorityList("USER")
+        .commaSeparatedStringToAuthorityList("USER")
 
     override fun getUsername(): String = username
     override fun getPassword(): String = password

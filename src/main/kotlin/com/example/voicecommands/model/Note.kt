@@ -13,7 +13,7 @@ data class Note(
 
         var name: String,
 
-        @Enumerated(EnumType.ORDINAL)
+        @Enumerated(EnumType.STRING)
         var noteType: NoteType,
 
         @ManyToOne
