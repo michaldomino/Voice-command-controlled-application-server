@@ -5,10 +5,6 @@ import javax.persistence.*
 
 @Entity
 data class Note(
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long,
-
     var name: String,
 
     @Enumerated(EnumType.STRING)
@@ -16,7 +12,11 @@ data class Note(
 
     @ManyToOne
     var owner: User,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long = 0
 
     @ManyToMany(mappedBy = "sharedNotes")
     var sharedWith: MutableSet<User> = mutableSetOf()
-)
+}

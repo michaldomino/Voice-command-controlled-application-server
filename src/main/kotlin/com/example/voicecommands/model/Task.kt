@@ -4,14 +4,14 @@ import javax.persistence.*
 
 @Entity
 data class Task(
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long,
-
     @ManyToOne
-    var note: Note,
+    var taskList: TaskList,
 
     var taskName: String,
 
-    var isChecked: Boolean,
-)
+    var isChecked: Boolean = false,
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long = 0
+}
