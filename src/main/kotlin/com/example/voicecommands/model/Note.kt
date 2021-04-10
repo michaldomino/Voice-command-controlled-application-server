@@ -1,15 +1,13 @@
 package com.example.voicecommands.model
 
 import com.example.voicecommands.enums.NoteType
-import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*
 
 @Entity
 data class Note(
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    var id: String,
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long,
 
     var name: String,
 

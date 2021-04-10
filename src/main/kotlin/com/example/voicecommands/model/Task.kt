@@ -1,17 +1,12 @@
 package com.example.voicecommands.model
 
-import org.hibernate.annotations.GenericGenerator
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
 @Entity
 data class Task(
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    var id: String,
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long,
 
     @ManyToOne
     var note: Note,

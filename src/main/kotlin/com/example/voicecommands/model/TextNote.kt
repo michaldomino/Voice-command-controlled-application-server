@@ -5,7 +5,7 @@ import javax.persistence.*
 @Entity
 data class TextNote(
     @Id
-    var id: String,
+    var id: Long,
 
     @MapsId
     @OneToOne

@@ -1,6 +1,5 @@
 package com.example.voicecommands.model
 
-import org.hibernate.annotations.GenericGenerator
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
@@ -9,9 +8,8 @@ import javax.persistence.*
 @Entity
 class User(
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    var id: String,
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    var id: Long,
 
     @OneToMany(mappedBy = "owner")
     var ownedNotes: MutableSet<Note>,
