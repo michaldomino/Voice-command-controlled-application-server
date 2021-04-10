@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+</head>
+<body>
+<h1>Notes</h1>
+<table border="solid">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Owner</th>
+    </tr>
+    <tr th:each="note : ${notes}">
+        <td th:text="${note.id}"></td>
+        <td th:text="${note.name}"></td>
+        <td th:text="${note.type.toString()}"></td>
+        <td th:text="${note.owner.getUsername()}"></td>
+    </tr>
+</table>
+</body>
+</html>

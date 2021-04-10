@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+</head>
+<body>
+<h1>Tasks</h1>
+<table border="solid">
+    <tr>
+        <th>ID</th>
+        <th>Note name</th>
+        <th>Task name</th>
+        <th>Is checked</th>
+    </tr>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.taskList.note.name}"></td>
+        <td th:text="${task.taskName}"></td>
+        <td th:text="${task.isChecked}"></td>
+    </tr>
+</table>
+</body>
+</html>
