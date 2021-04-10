@@ -5,11 +5,10 @@ import javax.persistence.*
 @Entity
 data class TaskList(
     @OneToOne
-    @PrimaryKeyJoinColumn
     var note: Note,
 ) {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0
 
     @OneToMany
