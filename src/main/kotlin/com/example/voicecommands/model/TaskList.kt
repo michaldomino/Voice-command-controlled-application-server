@@ -3,15 +3,14 @@ package com.example.voicecommands.model
 import javax.persistence.*
 
 @Entity
-data class Task(
-    @ManyToOne
-    var taskList: TaskList,
-
-    var taskName: String,
-
-    var isChecked: Boolean = false,
+data class TaskList(
+    @OneToOne
+    var note: Note,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     var id: Long = 0
+
+    @OneToMany
+    var tasks: MutableSet<Task> = mutableSetOf()
 }
