@@ -8,7 +8,7 @@ data class Note(
     var name: String,
 
     @Enumerated(EnumType.STRING)
-    var noteType: NoteType,
+    var type: NoteType,
 
     @ManyToOne
     var owner: User,

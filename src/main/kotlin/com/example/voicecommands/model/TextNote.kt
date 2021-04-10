@@ -5,7 +5,6 @@ import javax.persistence.*
 @Entity
 class TextNote(
     @OneToOne
-    @PrimaryKeyJoinColumn
     var note: Note,
 
     var text: String,
