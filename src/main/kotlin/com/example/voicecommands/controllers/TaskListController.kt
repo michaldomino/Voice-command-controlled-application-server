@@ -24,7 +24,7 @@ class TaskListController(
     fun getTaskListTasks(model: Model, @PathVariable("id") id: String): String {
         val taskList = taskListRepository.findByIdOrNull(id)
         if (taskList != null) {
-            model.addAttribute("tasks", taskRepository.findAllByTaskListIsContaining(taskList))
+            model.addAttribute("tasks", taskRepository.findAllByTaskList(taskList))
             model.addAttribute(
                 "filter",
                 "Task list: ${taskList.note.name}"

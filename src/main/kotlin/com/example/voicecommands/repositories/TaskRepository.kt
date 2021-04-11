@@ -5,5 +5,5 @@ import com.example.voicecommands.model.TaskList
 import org.springframework.data.repository.CrudRepository
 
 interface TaskRepository : CrudRepository<Task, String> {
-    fun findAllByTaskListIsContaining(taskList: TaskList)
+    fun findAllByTaskList(taskList: TaskList): Set<Task>
 }
