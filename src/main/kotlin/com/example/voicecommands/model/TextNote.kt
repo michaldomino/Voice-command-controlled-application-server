@@ -7,12 +7,12 @@ import javax.persistence.OneToOne
 
 @Entity
 class TextNote(
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @MapsId
     var note: Note,
-
-    var text: String,
 ) {
     @Id
     var id: String? = null
+
+    var text: String = ""
 }

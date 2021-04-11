@@ -4,7 +4,7 @@ import javax.persistence.*
 
 @Entity
 data class TaskList(
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @MapsId
     var note: Note,
 ) {
