@@ -1,13 +1,9 @@
 package com.example.voicecommands.controllers
 
-import com.example.voicecommands.dto.mapper.toNote
 import com.example.voicecommands.dto.model.NoteDTO
 import com.example.voicecommands.enums.NoteType
-import com.example.voicecommands.model.TaskList
-import com.example.voicecommands.model.TextNote
 import com.example.voicecommands.repositories.*
 import com.example.voicecommands.services.NoteService
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -15,10 +11,7 @@ import org.springframework.web.bind.annotation.*
 @Controller
 class NoteController(
     private val noteRepository: NoteRepository,
-    private val taskListRepository: TaskListRepository,
-    private val textNoteRepository: TextNoteRepository,
     private val userRepository: UserRepository,
-
     private val noteService: NoteService,
 ) {
 
@@ -54,21 +47,11 @@ class NoteController(
         if (noteDTO.id == null) {
             return "redirect:/notes"
         }
-        val note = noteRepository.findByIdOrNull(noteDTO.id!!)
-        return if (note == null) {
-            val detachedNote = noteDTO.toNote(userRepository)
-            return when (detachedNote.type) {
-                NoteType.TASK_LIST -> {
-                    val savedTaskList = taskListRepository.save(TaskList(detachedNote))
-                    "redirect:/note/${savedTaskList.id}/show"
-                }
-                NoteType.TEXT_NOTE -> {
-                    val savedTextNote = textNoteRepository.save(TextNote(detachedNote))
-                    "redirect:/note/${savedTextNote.id}/show"
-                }
-            }
+        val savedNoteId = noteService.saveNote(noteDTO)
+        return if (savedNoteId == null) {
+            "redirect:/notes"
         } else {
-            "redirect:/note/${noteDTO.id}/show"
+            "redirect:/note/${savedNoteId}/show"
         }
     }
 }
