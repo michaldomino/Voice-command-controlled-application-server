@@ -1,5 +1,6 @@
 package com.example.voicecommands.model
 
+import org.hibernate.annotations.GenericGenerator
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.userdetails.UserDetails
@@ -12,8 +13,10 @@ data class User(
     private var password: String,
 ) : UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    var id: String? = null
+
 
     @OneToMany(mappedBy = "owner")
     var ownedNotes: MutableSet<Note> = mutableSetOf()

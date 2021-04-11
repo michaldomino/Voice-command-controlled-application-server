@@ -1,5 +1,6 @@
 package com.example.voicecommands.model
 
+import org.hibernate.annotations.GenericGenerator
 import javax.persistence.*
 
 @Entity
@@ -12,6 +13,8 @@ data class Task(
     var isChecked: Boolean = false,
 ) {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    var id: String? = null
+
 }
