@@ -8,6 +8,7 @@ import javax.persistence.*
 
 @Entity
 data class User(
+    @Column(unique = true)
     private var username: String,
 
     private var password: String,
@@ -29,6 +30,9 @@ data class User(
 
     override fun getUsername(): String = username
     override fun getPassword(): String = password
+    fun setPassword(password: String) {
+        this.password = password
+    }
     override fun isAccountNonExpired(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
     override fun isCredentialsNonExpired(): Boolean = true

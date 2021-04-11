@@ -18,7 +18,7 @@
         <td th:text="${note.id}"></td>
         <td th:text="${note.name}"></td>
         <td th:text="${note.type.toString()}"></td>
-        <td th:text="${note.owner.getUsername()}"></td>
+        <td th:text="${note.owner.username}"></td>
         <td>
             <a href="#" th:href="@{'/note/' + ${note.id} + '/show'}">View</a>
             <a href="#" th:href="@{'/note/' + ${note.id} + '/delete'}">Delete <small style="color: #f44;"><i>(not

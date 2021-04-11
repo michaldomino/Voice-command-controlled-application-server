@@ -5,6 +5,5 @@ import org.springframework.stereotype.Service
 
 @Service
 interface TaskListService {
-
     fun deleteTaskList(taskListDTO: TaskListDTO)
 }
