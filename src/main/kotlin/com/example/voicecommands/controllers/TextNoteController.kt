@@ -11,9 +11,9 @@ class TextNoteController(
     private val textNoteRepository: TextNoteRepository
 ) {
 
-    @RequestMapping("/text_notes")
+    @RequestMapping("/text-notes")
     fun getNotes(model: Model): String {
         model.addAttribute("textNotes", textNoteRepository.findAll())
-        return "text_note/list"
+        return "text-note/list"
     }
 }

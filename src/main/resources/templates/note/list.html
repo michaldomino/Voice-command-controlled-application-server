@@ -20,7 +20,6 @@
         <td th:text="${note.owner.getUsername()}"></td>
         <td>
             <a href="#" th:href="@{'/note/' + ${note.id} + '/show'}">View</a>
-            <!--            <a href="#" th:href="@{'/artist/' + ${note.id} + '/songs'}">Songs</a>-->
             <a href="#" th:href="@{'/note/' + ${note.id} + '/delete'}">Delete <small style="color: #f44;"><i>(not
                 safe)</i></small></a>
         </td>
