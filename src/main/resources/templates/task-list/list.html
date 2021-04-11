@@ -14,6 +14,11 @@
     <tr th:each="taskList : ${taskLists}">
         <td th:text="${taskList.id}"></td>
         <td th:text="${taskList.note.name}"></td>
+        <td>
+            <a href="#" th:href="@{'/task-list/' + ${taskList.id} + '/tasks'}">Tasks</a>
+            <a href="#" th:href="@{'/note/' + ${taskList.id} + '/delete'}">Delete <small style="color: #f44;"><i>(not
+                safe)</i></small></a>
+        </td>
     </tr>
 </table>
 </body>

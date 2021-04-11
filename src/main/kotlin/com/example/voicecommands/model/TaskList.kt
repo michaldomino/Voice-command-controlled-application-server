@@ -11,6 +11,6 @@ data class TaskList(
     @Id
     var id: String? = null
 
-    @OneToMany
+    @OneToMany(mappedBy = "taskList", fetch = FetchType.EAGER)
     var tasks: MutableSet<Task> = mutableSetOf()
 }
