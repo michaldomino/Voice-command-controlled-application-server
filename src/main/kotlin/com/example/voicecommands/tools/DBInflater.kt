@@ -29,7 +29,7 @@ class DBInflater(
         val note1 = Note("note 1", NoteType.TEXT_NOTE, user)
         val note2 = Note("note 2", NoteType.TASK_LIST, user)
 
-        val textNote = TextNote(note1, "text")
+        val textNote = TextNote(note1)
         textNoteRepository.save(textNote)
 
         val taskList = TaskList(note2)

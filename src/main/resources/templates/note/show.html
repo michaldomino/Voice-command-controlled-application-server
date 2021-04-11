@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${note.name}"></title>
+</head>
+<body>
+<table border="solid">
+    <tr>
+        <th>Field</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>ID</td><td th:text="${note.id}"></td>
+    </tr>
+    <tr>
+        <td>Name</td><td th:text="${note.name}"></td>
+    </tr>
+    <tr>
+        <td>Type</td><td th:text="${note.type.toString()}"></td>
+    </tr>
+    <tr>
+        <td>Owner</td><td th:text="${note.owner.getUsername()}"></td>
+    </tr>
+</table>
+</body>
+</html>
