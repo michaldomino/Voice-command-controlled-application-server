@@ -8,7 +8,7 @@ data class Task(
     @ManyToOne
     var taskList: TaskList,
 
-    var taskName: String,
+    var name: String,
 
     var isChecked: Boolean = false,
 ) {
