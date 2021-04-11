@@ -43,4 +43,36 @@ class NoteController(
         }
         return "redirect:/notes"
     }
+
+    @GetMapping
+    @RequestMapping("/note/new")
+    fun newTaskList(model: Model): String {
+        model.addAttribute("note", NoteDTO())
+        model.addAttribute("types", arrayListOf(NoteType.TASK_LIST, NoteType.TEXT_NOTE))
+        model.addAttribute("users", userRepository.findAll())
+        return "note/addedit"
+    }
+
+    @PostMapping("note")
+    fun saveOrUpdate(@ModelAttribute noteDTO: NoteDTO): String {
+        if (noteDTO.id == null) {
+            return "redirect:/notes"
+        }
+        val note = noteRepository.findByIdOrNull(noteDTO.id!!)
+        return if (note == null) {
+            val detachedNote = noteDTO.toNote(userRepository)
+            return when (detachedNote.type) {
+                NoteType.TASK_LIST -> {
+                    val savedTaskList = taskListRepository.save(TaskList(detachedNote))
+                    "redirect:/note/${savedTaskList.id}/show"
+                }
+                NoteType.TEXT_NOTE -> {
+                    val savedTextNote = textNoteRepository.save(TextNote(detachedNote))
+                    "redirect:/note/${savedTextNote.id}/show"
+                }
+            }
+        } else {
+            "redirect:/note/${noteDTO.id}/show"
+        }
+    }
 }
