@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Text notes</title>
+</head>
+<body>
+<h1>Text notes</h1>
+<table border="solid">
+    <tr>
+        <th>ID</th>
+        <th>Note name</th>
+        <th>Text</th>
+    </tr>
+    <tr th:each="textNote : ${textNotes}">
+        <td th:text="${textNote.id}"></td>
+        <td th:text="${textNote.note.name}"></td>
+        <td th:text="${textNote.text}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task lists</title>
+</head>
+<body>
+<h1>Task lists</h1>
+<table border="solid">
+    <tr>
+        <th>ID</th>
+        <th>Note name</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="taskList : ${taskLists}">
+        <td th:text="${taskList.id}"></td>
+        <td th:text="${taskList.note.name}"></td>
+        <td>
+            <a href="#" th:href="@{'/task-list/' + ${taskList.id} + '/tasks'}">Tasks</a>
+            <a href="#" th:href="@{'/note/' + ${taskList.id} + '/delete'}">Delete <small style="color: #f44;"><i>(not
+                safe)</i></small></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

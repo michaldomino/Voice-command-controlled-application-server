@@ -1,16 +1,18 @@
 package com.example.voicecommands.model
 
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.MapsId
+import javax.persistence.OneToOne
 
 @Entity
 class TextNote(
-    @OneToOne
-    @PrimaryKeyJoinColumn
+    @OneToOne(orphanRemoval = true)
+    @MapsId
     var note: Note,
-
-    var text: String,
 ) {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0
+    var id: String? = null
+
+    var text: String = ""
 }

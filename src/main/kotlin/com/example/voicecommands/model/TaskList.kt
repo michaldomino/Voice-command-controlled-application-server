@@ -4,13 +4,13 @@ import javax.persistence.*
 
 @Entity
 data class TaskList(
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
+    @MapsId
     var note: Note,
 ) {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0
+    var id: String? = null
 
-    @OneToMany
+    @OneToMany(mappedBy = "taskList", fetch = FetchType.EAGER)
     var tasks: MutableSet<Task> = mutableSetOf()
 }
