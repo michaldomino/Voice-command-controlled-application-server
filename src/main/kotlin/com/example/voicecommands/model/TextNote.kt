@@ -1,17 +1,18 @@
 package com.example.voicecommands.model
 
-import org.hibernate.annotations.GenericGenerator
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.MapsId
+import javax.persistence.OneToOne
 
 @Entity
 class TextNote(
     @OneToOne
+    @MapsId
     var note: Note,
 
     var text: String,
 ) {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     var id: String? = null
 }
