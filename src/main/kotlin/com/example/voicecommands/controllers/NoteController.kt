@@ -47,11 +47,7 @@ class NoteController(
         if (noteDTO.id == null) {
             return "redirect:/notes"
         }
-        val savedNoteId = noteService.saveNote(noteDTO)
-        return if (savedNoteId == null) {
-            "redirect:/notes"
-        } else {
-            "redirect:/note/${savedNoteId}/show"
-        }
+        noteService.saveNote(noteDTO)
+        return "redirect:/notes"
     }
 }
