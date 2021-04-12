@@ -1,4 +1,4 @@
-package com.example.voicecommands.controllers
+package com.example.voicecommands.controllers.template
 
 import com.example.voicecommands.dto.model.UserDTO
 import com.example.voicecommands.repositories.UserRepository
