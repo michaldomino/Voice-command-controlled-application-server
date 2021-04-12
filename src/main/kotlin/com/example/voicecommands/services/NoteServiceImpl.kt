@@ -1,6 +1,7 @@
 package com.example.voicecommands.services
 
 import com.example.voicecommands.dto.mapper.toNote
+import com.example.voicecommands.dto.mapper.toNoteDTO
 import com.example.voicecommands.dto.model.NoteDTO
 import com.example.voicecommands.dto.model.TaskListDTO
 import com.example.voicecommands.enums.NoteType
@@ -22,6 +23,14 @@ class NoteServiceImpl(
 
     private val taskListService: TaskListService,
 ) : NoteService {
+    override fun findAllNotes(): List<NoteDTO> {
+        return noteRepository.findAll().map { it.toNoteDTO() }
+    }
+
+    override fun findNoteById(id: String): NoteDTO? {
+        return noteRepository.findByIdOrNull(id)?.toNoteDTO()
+    }
+
     override fun deleteNoteById(id: String) {
         val note = noteRepository.findByIdOrNull(id)
         when (note?.type) {
@@ -48,18 +57,5 @@ class NoteServiceImpl(
             }
         }
         return null
-
-
-//        if (note == null) {
-//            val detachedNote = noteDTO.toNote(userRepository)
-//            return when (detachedNote.type) {
-//                    val savedTaskList = taskListRepository.save(TaskList(detachedNote))
-//                    "redirect:/note/${savedTaskList.id}/show"
-//                }
-//                NoteType.TEXT_NOTE -> {
-//                    val savedTextNote = textNoteRepository.save(TextNote(detachedNote))
-//                    "redirect:/note/${savedTextNote.id}/show"
-//                }
-//            }
     }
 }
