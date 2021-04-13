@@ -50,12 +50,20 @@ class NoteServiceImpl(
                     taskListToSave.id
                 }
                 NoteType.TEXT_NOTE -> {
-                    val textNoteToSave= TextNote(detachedNote)
+                    val textNoteToSave = TextNote(detachedNote)
                     textNoteRepository.save(textNoteToSave)
                     textNoteToSave.id
                 }
             }
         }
         return null
+    }
+
+    override fun findAllNotesByType(type: NoteType): List<NoteDTO> {
+        return noteRepository.findAllByType(type).map { it.toNoteDTO() }
+    }
+
+    override fun findAllNotesByNameContains(name: String): List<NoteDTO> {
+        return noteRepository.findAllByNameContains(name).map { it.toNoteDTO() }
     }
 }

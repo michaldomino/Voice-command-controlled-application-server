@@ -1,11 +1,9 @@
 package com.example.voicecommands.controllers.rest
 
 import com.example.voicecommands.dto.model.NoteDTO
+import com.example.voicecommands.enums.NoteType
 import com.example.voicecommands.services.NoteService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/note")
@@ -20,5 +18,15 @@ class NoteRestController(
     @GetMapping("{id}")
     fun getNoteById(@PathVariable id: String): NoteDTO? {
         return noteService.findNoteById(id)
+    }
+
+    @GetMapping("/search/findAllByType")
+    fun getNotesByType(@RequestParam type: NoteType): List<NoteDTO> {
+        return noteService.findAllNotesByType(type)
+    }
+
+    @GetMapping("/search/findAllByNameLike")
+    fun getNotesByNameLike(@RequestParam name: String): List<NoteDTO> {
+        return noteService.findAllNotesByNameContains(name)
     }
 }
