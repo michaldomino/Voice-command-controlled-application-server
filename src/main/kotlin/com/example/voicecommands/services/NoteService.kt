@@ -12,4 +12,5 @@ interface NoteService {
     fun saveNote(noteDTO: NoteDTO): String?
     fun findAllNotesByType(type: NoteType): List<NoteDTO>
     fun findAllNotesByNameContains(name: String): List<NoteDTO>
+    fun updateNote(noteDTO: NoteDTO): NoteDTO
 }

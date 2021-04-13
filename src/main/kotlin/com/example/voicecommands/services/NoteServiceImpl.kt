@@ -59,6 +59,10 @@ class NoteServiceImpl(
         return null
     }
 
+    override fun updateNote(noteDTO: NoteDTO): NoteDTO {
+        return noteRepository.save(noteDTO.toNote(userRepository)).toNoteDTO()
+    }
+
     override fun findAllNotesByType(type: NoteType): List<NoteDTO> {
         return noteRepository.findAllByType(type).map { it.toNoteDTO() }
     }
