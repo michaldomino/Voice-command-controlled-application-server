@@ -7,3 +7,5 @@ import com.example.voicecommands.repositories.UserRepository
 fun NoteDTO.toNote(userRepository: UserRepository): Note {
     return Note(name!!, type!!, userRepository.findById(ownerId!!).get())
 }
+
+fun Note.toNoteDTO() = NoteDTO(id, name, type, owner.id)

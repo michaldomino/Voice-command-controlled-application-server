@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${task.name}"></title>
+</head>
+<body>
+<table border="solid">
+    <tr>
+        <th>Field</th>
+        <th>Value</th>
+    </tr>
+    <tr>
+        <td>ID</td><td th:text="${task.id}"></td>
+    </tr>
+    <tr>
+        <td>Name</td><td th:text="${task.name}"></td>
+    </tr>
+    <tr>
+        <td>Is checked</td><td th:text="${task.isChecked}"></td>
+    </tr>
+    <tr>
+        <td>Task list</td><td th:text="${task.taskList.note.name}"></td>
+    </tr>
+</table>
+</body>
+</html>

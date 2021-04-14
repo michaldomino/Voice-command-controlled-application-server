@@ -23,19 +23,33 @@ class DBInflater(
     }
 
     private fun initData() {
-        val user = User("admin", bCryptPasswordEncoder.encode("admin"))
-        userRepository.save(user)
+        val user1 = User("user1", bCryptPasswordEncoder.encode("password"))
+        userRepository.save(user1)
+        val user2 = User("user2", bCryptPasswordEncoder.encode("password"))
+        userRepository.save(user2)
 
-        val note1 = Note("note 1", NoteType.TEXT_NOTE, user)
-        val note2 = Note("note 2", NoteType.TASK_LIST, user)
+        val note1 = Note("text note 1", NoteType.TEXT_NOTE, user1)
+        val note2 = Note("task list 1", NoteType.TASK_LIST, user1)
+        val note3 = Note("text note 2", NoteType.TEXT_NOTE, user2)
+        val note4 = Note("task list 2", NoteType.TASK_LIST, user2)
 
-        val textNote = TextNote(note1)
-        textNoteRepository.save(textNote)
+        val textNote1 = TextNote(note1)
+        textNoteRepository.save(textNote1)
+        val textNote2 = TextNote(note3)
+        textNoteRepository.save(textNote2)
 
-        val taskList = TaskList(note2)
-        taskListRepository.save(taskList)
+        val taskList1 = TaskList(note2)
+        taskListRepository.save(taskList1)
+        val taskList2 = TaskList(note4)
+        taskListRepository.save(taskList2)
 
-        val task = Task(taskList, "task 1")
-        taskRepository.save(task)
+        val task1 = Task(taskList1, "task 1.1")
+        taskRepository.save(task1)
+        val task2 = Task(taskList1, "task 1.2")
+        taskRepository.save(task2)
+        val task3 = Task(taskList2, "task 2.1")
+        taskRepository.save(task3)
+        val task4 = Task(taskList2, "task 3.2")
+        taskRepository.save(task4)
     }
 }

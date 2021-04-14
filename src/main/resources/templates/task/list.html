@@ -12,13 +12,20 @@
         <th>Note name</th>
         <th>Task name</th>
         <th>Is checked</th>
+        <th>Action</th>
     </tr>
     <tr th:each="task : ${tasks}">
         <td th:text="${task.id}"></td>
         <td th:text="${task.taskList.note.name}"></td>
-        <td th:text="${task.taskName}"></td>
+        <td th:text="${task.name}"></td>
         <td th:text="${task.isChecked}"></td>
+        <td>
+            <a href="#" th:href="@{'/task/' + ${task.id} + '/show'}">View</a>
+            <a href="#" th:href="@{'/task/' + ${task.id} + '/delete'}">Delete <small style="color: #f44;"><i>(not
+                safe)</i></small></a>
+        </td>
     </tr>
 </table>
+<a href="#" th:href="@{'/task/new'}" role="button">Add</a>
 </body>
 </html>

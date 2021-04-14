@@ -1,6 +1,5 @@
-package com.example.voicecommands.controllers
+package com.example.voicecommands.controllers.template
 
-import com.example.voicecommands.repositories.NoteRepository
 import com.example.voicecommands.repositories.TextNoteRepository
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model

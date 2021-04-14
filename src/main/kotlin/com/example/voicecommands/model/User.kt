@@ -29,10 +29,15 @@ data class User(
         AuthorityUtils.commaSeparatedStringToAuthorityList("USER")
 
     override fun getUsername(): String = username
+    fun setUsername(username: String) {
+        this.username = username
+    }
+
     override fun getPassword(): String = password
     fun setPassword(password: String) {
         this.password = password
     }
+
     override fun isAccountNonExpired(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
     override fun isCredentialsNonExpired(): Boolean = true

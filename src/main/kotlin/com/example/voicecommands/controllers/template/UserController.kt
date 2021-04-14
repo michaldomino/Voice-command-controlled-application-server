@@ -1,8 +1,6 @@
-package com.example.voicecommands.controllers
+package com.example.voicecommands.controllers.template
 
-import com.example.voicecommands.dto.mapper.toUser
 import com.example.voicecommands.dto.model.UserDTO
-import com.example.voicecommands.model.TaskList
 import com.example.voicecommands.repositories.UserRepository
 import com.example.voicecommands.services.UserService
 import org.springframework.data.repository.findByIdOrNull
@@ -48,11 +46,9 @@ class UserController(
             return "redirect:/users"
         }
         val user = userRepository.findByIdOrNull(userDTO.id)
-        return if (user == null) {
-            val savedUser = userService.addUser(userDTO)
-            "redirect:/user/${savedUser.id}/show"
-        } else {
-            "redirect:/user/${userDTO.id}/show"
+        if (user == null) {
+            userService.saveUser(userDTO)
         }
+        return "redirect:/users"
     }
 }
