@@ -14,13 +14,8 @@ class NoteRestController(
 ) {
     @PostMapping
     fun createNote(@RequestBody noteDTO: NoteDTO): ResponseEntity<NoteDTO> {
-        val badResponse: ResponseEntity<NoteDTO> = ResponseEntity.badRequest().build()
-        if (noteDTO.id == null) {
-            return badResponse
-        }
-        val note = noteService.findNoteById(noteDTO.id)
-        if (note != null) {
-            return badResponse
+        if (noteDTO.id != null) {
+            return ResponseEntity.badRequest().build()
         }
         return ResponseEntity<NoteDTO>(noteService.saveNote(noteDTO), HttpStatus.CREATED)
     }

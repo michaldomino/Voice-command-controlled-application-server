@@ -9,7 +9,7 @@ interface NoteService {
     fun findAllNotes(): List<NoteDTO>
     fun findNoteById(id: String): NoteDTO?
     fun deleteNoteById(id: String)
-    fun saveNote(noteDTO: NoteDTO): NoteDTO?
+    fun saveNote(noteDTO: NoteDTO): NoteDTO
     fun findAllNotesByType(type: NoteType): List<NoteDTO>
     fun findAllNotesByNameContains(name: String): List<NoteDTO>
     fun updateNote(noteDTO: NoteDTO): NoteDTO

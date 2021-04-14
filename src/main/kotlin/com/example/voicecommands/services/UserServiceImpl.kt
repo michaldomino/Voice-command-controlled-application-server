@@ -56,13 +56,14 @@ class UserServiceImpl(
     }
 
     override fun updateUser(userDTO: UserDTO): UserDTO {
-        val userToSave = userDTO.toUser()
-        userToSave.password = bCryptPasswordEncoder.encode(userToSave.password)
+        val userToSave = userRepository.findById(userDTO.id!!).get()
+        userToSave.username = userDTO.username!!
+        userToSave.password = bCryptPasswordEncoder.encode(userDTO.password)
         return userRepository.save(userToSave).toUserDTO()
     }
 
     override fun partialUpdateUser(userDTOToUpdate: UserDTO, userDTO: UserDTO): UserDTO {
-        val userToUpdate = userDTOToUpdate.toUser()
+        val userToUpdate = userRepository.findById(userDTOToUpdate.id!!).get()
         if (userDTO.username != null) {
             userToUpdate.username = userDTO.username
         }

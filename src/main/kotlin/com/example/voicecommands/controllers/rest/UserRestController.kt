@@ -14,7 +14,7 @@ class UserRestController(
 ) {
 
     @PostMapping
-    fun registerUser(userDTO: UserDTO): ResponseEntity<UserDTO> {
+    fun registerUser(@RequestBody userDTO: UserDTO): ResponseEntity<UserDTO> {
         if (userDTO.id != null) {
             return ResponseEntity.badRequest().build()
         }

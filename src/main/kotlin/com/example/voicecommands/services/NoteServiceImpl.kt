@@ -39,24 +39,20 @@ class NoteServiceImpl(
         }
     }
 
-    override fun saveNote(noteDTO: NoteDTO): NoteDTO? {
-        val note = noteRepository.findByIdOrNull(noteDTO.id!!)
-        if (note == null) {
-            val detachedNote = noteDTO.toNote(userRepository)
-            return when (detachedNote.type) {
-                NoteType.TASK_LIST -> {
-                    val taskListToSave = TaskList(detachedNote)
-                    taskListRepository.save(taskListToSave)
-                    NoteDTO(taskListToSave.id, noteDTO.name, noteDTO.type, noteDTO.ownerId)
-                }
-                NoteType.TEXT_NOTE -> {
-                    val textNoteToSave = TextNote(detachedNote)
-                    textNoteRepository.save(textNoteToSave)
-                    NoteDTO(textNoteToSave.id, noteDTO.name, noteDTO.type, noteDTO.ownerId)
-                }
+    override fun saveNote(noteDTO: NoteDTO): NoteDTO {
+        val detachedNote = noteDTO.toNote(userRepository)
+        return when (detachedNote.type) {
+            NoteType.TASK_LIST -> {
+                val taskListToSave = TaskList(detachedNote)
+                taskListRepository.save(taskListToSave)
+                NoteDTO(taskListToSave.id, noteDTO.name, noteDTO.type, noteDTO.ownerId)
+            }
+            NoteType.TEXT_NOTE -> {
+                val textNoteToSave = TextNote(detachedNote)
+                textNoteRepository.save(textNoteToSave)
+                NoteDTO(textNoteToSave.id, noteDTO.name, noteDTO.type, noteDTO.ownerId)
             }
         }
-        return null
     }
 
     override fun findAllNotesByType(type: NoteType): List<NoteDTO> {
@@ -68,11 +64,14 @@ class NoteServiceImpl(
     }
 
     override fun updateNote(noteDTO: NoteDTO): NoteDTO {
-        return noteRepository.save(noteDTO.toNote(userRepository)).toNoteDTO()
+        val noteToUpdate = noteRepository.findById(noteDTO.id!!).get()
+        noteToUpdate.name = noteDTO.name!!
+        noteToUpdate.type = noteDTO.type!!
+        return noteRepository.save(noteToUpdate).toNoteDTO()
     }
 
     override fun partialUpdateNote(noteDTOToUpdate: NoteDTO, noteDTO: NoteDTO): NoteDTO {
-        val noteToUpdate = noteDTOToUpdate.toNote(userRepository)
+        val noteToUpdate = noteRepository.findById(noteDTOToUpdate.id!!).get()
         if (noteDTO.name != null) {
             noteToUpdate.name = noteDTO.name
         }
