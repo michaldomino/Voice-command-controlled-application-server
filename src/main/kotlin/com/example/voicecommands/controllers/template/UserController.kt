@@ -47,7 +47,7 @@ class UserController(
         }
         val user = userRepository.findByIdOrNull(userDTO.id)
         if (user == null) {
-            userService.addUser(userDTO)
+            userService.saveUser(userDTO)
         }
         return "redirect:/users"
     }

@@ -27,7 +27,7 @@ class NoteRestController(
 
     @GetMapping("list")
     fun getNotes(): ResponseEntity<List<NoteDTO>> {
-        return ResponseEntity.accepted().body(noteService.findAllNotes())
+        return ResponseEntity.ok(noteService.findAllNotes())
     }
 
     @GetMapping("{id}")
@@ -36,17 +36,17 @@ class NoteRestController(
         if (note == null) {
             return ResponseEntity.notFound().build()
         }
-        return ResponseEntity.accepted().body(note)
+        return ResponseEntity.ok(note)
     }
 
     @GetMapping("/search/findAllByType")
     fun getNotesByType(@RequestParam type: NoteType): ResponseEntity<List<NoteDTO>> {
-        return ResponseEntity.accepted().body(noteService.findAllNotesByType(type))
+        return ResponseEntity.ok(noteService.findAllNotesByType(type))
     }
 
-    @GetMapping("/search/findAllByNameLike")
-    fun getNotesByNameLike(@RequestParam name: String): ResponseEntity<List<NoteDTO>> {
-        return ResponseEntity.accepted().body(noteService.findAllNotesByNameContains(name))
+    @GetMapping("/search/findAllByNameContains")
+    fun getNotesByNameContains(@RequestParam name: String): ResponseEntity<List<NoteDTO>> {
+        return ResponseEntity.ok(noteService.findAllNotesByNameContains(name))
     }
 
     @PutMapping("{id}")
@@ -55,7 +55,7 @@ class NoteRestController(
         if (note == null) {
             return ResponseEntity.notFound().build()
         }
-        return ResponseEntity.accepted().body(noteService.updateNote(noteDTO))
+        return ResponseEntity.ok(noteService.updateNote(noteDTO))
     }
 
     @PatchMapping("{id}")
@@ -64,7 +64,7 @@ class NoteRestController(
         if (note == null) {
             return ResponseEntity.notFound().build()
         }
-        return ResponseEntity.accepted().body(noteService.partialUpdateNote(note, noteDTO))
+        return ResponseEntity.ok(noteService.partialUpdateNote(note, noteDTO))
     }
 
     @DeleteMapping("{id}")
