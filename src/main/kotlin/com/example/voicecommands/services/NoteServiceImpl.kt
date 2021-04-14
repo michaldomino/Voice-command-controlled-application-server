@@ -39,7 +39,7 @@ class NoteServiceImpl(
         }
     }
 
-    override fun saveNote(noteDTO: NoteDTO): String? {
+    override fun saveNote(noteDTO: NoteDTO): NoteDTO? {
         val note = noteRepository.findByIdOrNull(noteDTO.id!!)
         if (note == null) {
             val detachedNote = noteDTO.toNote(userRepository)
@@ -47,20 +47,16 @@ class NoteServiceImpl(
                 NoteType.TASK_LIST -> {
                     val taskListToSave = TaskList(detachedNote)
                     taskListRepository.save(taskListToSave)
-                    taskListToSave.id
+                    NoteDTO(taskListToSave.id, noteDTO.name, noteDTO.type, noteDTO.ownerId)
                 }
                 NoteType.TEXT_NOTE -> {
                     val textNoteToSave = TextNote(detachedNote)
                     textNoteRepository.save(textNoteToSave)
-                    textNoteToSave.id
+                    NoteDTO(textNoteToSave.id, noteDTO.name, noteDTO.type, noteDTO.ownerId)
                 }
             }
         }
         return null
-    }
-
-    override fun updateNote(noteDTO: NoteDTO): NoteDTO {
-        return noteRepository.save(noteDTO.toNote(userRepository)).toNoteDTO()
     }
 
     override fun findAllNotesByType(type: NoteType): List<NoteDTO> {
@@ -69,5 +65,27 @@ class NoteServiceImpl(
 
     override fun findAllNotesByNameContains(name: String): List<NoteDTO> {
         return noteRepository.findAllByNameContains(name).map { it.toNoteDTO() }
+    }
+
+    override fun updateNote(noteDTO: NoteDTO): NoteDTO {
+        return noteRepository.save(noteDTO.toNote(userRepository)).toNoteDTO()
+    }
+
+    override fun partialUpdateNote(noteDTOToUpdate: NoteDTO, noteDTO: NoteDTO): NoteDTO {
+        val noteToUpdate = noteDTOToUpdate.toNote(userRepository)
+        noteToUpdate.name
+        if (noteDTO.name != null) {
+            noteToUpdate.name = noteDTO.name
+        }
+        if (noteDTO.type != null) {
+            noteToUpdate.type = noteDTO.type
+        }
+        if (noteDTO.ownerId != null) {
+            val owner = userRepository.findByIdOrNull(noteDTO.ownerId)
+            if (owner != null) {
+                noteToUpdate.owner = owner
+            }
+        }
+        return noteRepository.save(noteToUpdate).toNoteDTO()
     }
 }
