@@ -73,7 +73,6 @@ class NoteServiceImpl(
 
     override fun partialUpdateNote(noteDTOToUpdate: NoteDTO, noteDTO: NoteDTO): NoteDTO {
         val noteToUpdate = noteDTOToUpdate.toNote(userRepository)
-        noteToUpdate.name
         if (noteDTO.name != null) {
             noteToUpdate.name = noteDTO.name
         }

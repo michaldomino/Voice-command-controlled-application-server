@@ -21,7 +21,7 @@ class UserRestController(
         return ResponseEntity<UserDTO>(userService.saveUser(userDTO), HttpStatus.CREATED)
     }
 
-    @GetMapping
+    @GetMapping("list")
     fun getAllUsers(): ResponseEntity<List<UserDTO>> {
         return ResponseEntity.ok(userService.findAllUsers())
     }
@@ -40,8 +40,55 @@ class UserRestController(
         return ResponseEntity.ok(userService.findAllUsersByUsernameContains(username))
     }
 
-    @GetMapping("/search/findAllBySharedNoteNameContain")
-    fun getUsersByUserNameContains(@RequestParam sharedNoteName: String): ResponseEntity<List<UserDTO>> {
-        return ResponseEntity.ok(userService.findAllUsersBySharedNoteNameContains(sharedNoteName))
+    @GetMapping("/search/findAllByOwnedNotesCountBetween")
+    fun getUsersByOwnedNotesCountBetween(
+        @RequestParam(required = false, defaultValue = "0") minimumOwnedNotesCount: Int,
+        @RequestParam maximumOwnedNotesCount: Int? = null
+    ): ResponseEntity<List<UserDTO>> {
+        return ResponseEntity.ok(
+            userService.findAllUsersByOwnedNotesCountBetween(
+                minimumOwnedNotesCount,
+                maximumOwnedNotesCount
+            )
+        )
+    }
+
+    @PostMapping("/{id}/addSharedNotes")
+    fun addSharedNotesToUser(
+        @PathVariable id: String,
+        @RequestBody noteIds: List<NoteDTO>
+    ): ResponseEntity<List<NoteDTO>> {
+        val user = userService.findUserById(id)
+        if (user == null) {
+            return ResponseEntity.notFound().build()
+        }
+        return ResponseEntity.ok(userService.addSharedNoteToUser(id, noteIds))
+    }
+
+    @PutMapping("{id}")
+    fun updateUser(@PathVariable id: String, @RequestBody userDTO: UserDTO): ResponseEntity<UserDTO> {
+        val user = userService.findUserById(id)
+        if (user == null) {
+            return ResponseEntity.notFound().build()
+        }
+        return ResponseEntity.ok(userService.updateUser(userDTO))
+    }
+
+    @PatchMapping("{id}")
+    fun partialUpdateUser(@PathVariable id: String, @RequestBody userDTO: UserDTO): ResponseEntity<UserDTO> {
+        val user = userService.findUserById(id)
+        if (user == null) {
+            return ResponseEntity.notFound().build()
+        }
+        return ResponseEntity.ok(userService.partialUpdateUser(user, userDTO))
+    }
+
+    @DeleteMapping("{id}")
+    fun deleteNote(@PathVariable id: String): ResponseEntity<Any> {
+        if (userService.findUserById(id) == null) {
+            return ResponseEntity.notFound().build()
+        }
+        userService.deleteUserById(id)
+        return ResponseEntity.ok().build()
     }
 }

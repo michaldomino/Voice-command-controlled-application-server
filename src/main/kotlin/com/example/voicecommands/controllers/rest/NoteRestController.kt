@@ -73,6 +73,6 @@ class NoteRestController(
             return ResponseEntity.notFound().build()
         }
         noteService.deleteNoteById(id)
-        return ResponseEntity.noContent().build()
+        return ResponseEntity.ok().build()
     }
 }
