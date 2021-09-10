@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Task form</title>
+</head>
+<body>
+<form th:object="${task}" th:action="@{/task/}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <h1><span th:text="*{id} != null ? 'Edit ' : 'New '+'task'"></span></h1>
+    <br>
+    <label>Name:
+        <input type="text" th:field="*{name}"/>
+    </label>
+    <br>
+    <label>Is checked:
+        <input type="checkbox" name="isChecked" th:checked="${task.isChecked}"/>
+    </label>
+    <br>
+    <label>Task list:
+        <select th:field="*{taskListId}">
+            <option th:each="taskList : ${taskLists}" th:text="${taskList.note.name}" th:value="${taskList.id}">
+            </option>
+        </select>
+    </label>
+    <br>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
